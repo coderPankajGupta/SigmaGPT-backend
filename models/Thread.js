@@ -29,7 +29,7 @@ const ThreadSchema = new mongoose.Schema({
   messages: [MessageSchema],
   createdAt: {
     type: Date,
-    default: Data.now,
+    default: Date.now,
   },
   updatedAt: {
     type: Date,

@@ -4,20 +4,20 @@ import { gettingFromGemini } from "../utils/Geminiai.js";
 
 const router = express.Router();
 
-router.post("/test", async (req, res) => {
-  try {
-    const response = await Thread.create({
-      threadId: "abc",
-      title: "New thread Chat",
-    });
+// router.post("/test", async (req, res) => {
+//   try {
+//     const response = await Thread.create({
+//       threadId: "abc",
+//       title: "New thread Chat",
+//     });
 
-    return res.status(201).json(response);
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: `Error during saving into DB : ${error.message}` });
-  }
-});
+//     return res.status(201).json(response);
+//   } catch (error) {
+//     return res
+//       .status(500)
+//       .json({ message: `Error during saving into DB : ${error.message}` });
+//   }
+// });
 
 router.get("/thread", async (req, res) => {
   try {
@@ -83,13 +83,16 @@ router.post("/chat", async (req, res) => {
     }
 
     const AssistentReply = await gettingFromGemini(message);
-    result.messages.push({ role: "assistant", content: AssistentReply });
-    result.updatedAt = new Date()
+    result.messages.push({
+      role: "assistant",
+      content: AssistentReply || "No reply",
+    });
+    result.updatedAt = new Date();
     await result.save();
 
-    return res.status(200).json({reply:AssistentReply})
+    return res.status(200).json({ reply: AssistentReply });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res
       .status(500)
       .json({ message: `Error during chats : ${error.message}` });

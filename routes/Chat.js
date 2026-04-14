@@ -4,21 +4,6 @@ import { gettingFromGemini } from "../utils/Geminiai.js";
 
 const router = express.Router();
 
-// router.post("/test", async (req, res) => {
-//   try {
-//     const response = await Thread.create({
-//       threadId: "abc",
-//       title: "New thread Chat",
-//     });
-
-//     return res.status(201).json(response);
-//   } catch (error) {
-//     return res
-//       .status(500)
-//       .json({ message: `Error during saving into DB : ${error.message}` });
-//   }
-// });
-
 router.get("/thread", async (req, res) => {
   try {
     const result = await Thread.find().sort({ updatedAt: -1 });

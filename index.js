@@ -6,7 +6,15 @@ import connectDB from "./config/db.js";
 import Chatrouter from "./routes/Chat.js";
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://sigma-gpt-frontend-one.vercel.app",
+    ],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 connectDB();
